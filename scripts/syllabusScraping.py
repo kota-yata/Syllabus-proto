@@ -143,6 +143,8 @@ def scrape_and_save_data(driver, start_page=1, end_page=10):
 
         try:
             field = driver.find_element(By.XPATH, "/html/body/div[2]/div/div[1]/div[1]/div/dl[3]/dd[1]").text
+            field = field.replace("データサイエンス科目-", "")
+            field = field.replace("先端科目-", "")
         except:
             field = ""
 
