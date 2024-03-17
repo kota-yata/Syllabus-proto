@@ -74,7 +74,7 @@ def scrape_and_save_data(driver, start_page=1, end_page=10):
 
         driver.get(course_url)
 
-        # 研究会と授業で2パターンあるので、タイトルに研究会があるかどうかで判断する
+        # 研究会と授業で2パターンあるので、分野が研究プロジェクト科目かどうかで判断する
         field_xpath = "/html/body/div[2]/div/div[1]/div[1]/div/dl[3]/dd[1]"
         field_elements = driver.find_elements(By.XPATH, field_xpath)
         if field_elements and field_elements[0].text == "研究プロジェクト科目":
