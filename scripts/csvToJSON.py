@@ -62,7 +62,7 @@ def convert_csv_to_json(csv_file_path, output_json_path):
                 "lang": row['lang'],
                 "year": int(row['year']),
                 "semester": row['semester'],
-                "is_giga": bool(row['is_giga']),
+                "is_giga": row['is_giga'] == 'True',
                 "url": row['url'],
                 "fields": [
                     {
