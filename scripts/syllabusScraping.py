@@ -75,9 +75,9 @@ def scrape_and_save_data(driver, start_page=1, end_page=10):
         driver.get(course_url)
 
         # 研究会と授業で2パターンあるので、タイトルに研究会があるかどうかで判断する
-        pattern_xpath = "/html/body/div[2]/div/h2/span[2]"
-        is_research_club = driver.find_elements(By.XPATH, pattern_xpath)
-        if is_research_club and "研究会" in is_research_club[0].text:
+        field_xpath = "/html/body/div[2]/div/div[1]/div[1]/div/dl[3]/dd[1]"
+        field_elements = driver.find_elements(By.XPATH, field_xpath)
+        if field_elements and field_elements[0].text == "研究プロジェクト科目":
             # 研究会用
             day_xpath = "/html/body/div[2]/div/div[1]/div[2]/dl[3]/dd"
             place_xpath = "/html/body/div[2]/div/div[1]/div[2]/dl[7]/dd"
@@ -129,10 +129,10 @@ def scrape_and_save_data(driver, start_page=1, end_page=10):
         except:
             lang = ""
 
-        try:
-            is_giga = False if "非対象" in driver.find_element(By.XPATH, giga_xpath).text else True
-        except:
-            is_giga = ""
+        giga_text = driver.find_element(By.XPATH, giga_xpath).text
+        is_giga = (giga_text == "対象")
+        if not is_giga and giga_text != "非対象":
+            raise ValueError("GIGA text not found.")
 
         url = driver.current_url
 
